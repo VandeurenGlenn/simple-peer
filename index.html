@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <script type="module">
+      import Peer from './exports/browser/index.js'
+
+      globalThis.peer = new Peer({ initiator: true })
+      globalThis.peer2 = new Peer()
+
+      peer.on('signal', (signal) => {
+        peer2.signal(signal)
+      })
+      peer2.on('signal', (signal) => {
+        peer.signal(signal)
+      })
+
+      peer.on('data', (data) => {
+        console.log(data)
+      })
+
+      peer2.on('data', (data) => {
+        console.log(data)
+      })
+
+      peer2.on('connect', () => {
+        peer.send(new Uint8Array(64 * 1024))
+      })
+
+      peer.on('connect', () => {
+        peer2.send(new Uint8Array(128 * 1024))
+      })
+    </script>
+  </body>
+</html>

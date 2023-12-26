@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <script type="module">
+      import * as bench from '/bench.js'
+
+      import Peer from './../exports/browser/index.js'
+      const run = () =>
+        new Promise((resolve) => {
+          const peer = new Peer({ initiator: true })
+          const peer2 = new Peer()
+
+          peer2.on('signal', (signal) => {
+            peer.signal(signal)
+          })
+
+          peer.on('signal', (signal) => {
+            peer2.signal(signal)
+          })
+          peer2.on('data', (data) => {
+            peer2._destroy()
+            peer._destroy()
+            resolve()
+          })
+
+          peer2.on('connect', () => {
+            peer.send(new Uint8Array(64 * 1024))
+          })
+
+          peer.on('connect', () => {
+            peer2.send(new Uint8Array(64 * 1024))
+          })
+        })
+
+      bench.start()
+
+      await run()
+
+      bench.stop()
+    </script>
+  </body>
+</html>

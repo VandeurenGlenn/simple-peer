@@ -1,42 +1,33 @@
 {
-  "name": "simple-peer",
+  "name": "@vandeurenglenn/simple-peer",
   "description": "Simple one-to-one WebRTC video/voice and data channels",
-  "version": "9.11.1",
+  "version": "11.0.0",
+  "type": "module",
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
     "url": "https://feross.org"
   },
+  "files": [
+    "exports"
+  ],
   "bugs": {
-    "url": "https://github.com/feross/simple-peer/issues"
+    "url": "https://github.com/vandeurenglenn/simple-peer/issues"
   },
   "dependencies": {
-    "buffer": "^6.0.3",
-    "debug": "^4.3.2",
-    "err-code": "^3.0.1",
-    "get-browser-rtc": "^1.1.0",
-    "queue-microtask": "^1.2.3",
-    "randombytes": "^2.1.0",
-    "readable-stream": "^3.6.0"
+    "@koush/wrtc": "^0.5.3",
+    "@vandeurenglenn/debug": "^1.0.0",
+    "@vandeurenglenn/little-pubsub": "^1.4.6",
+    "readable-stream": "^4.5.1"
   },
   "devDependencies": {
-    "airtap": "^4.0.3",
-    "airtap-manual": "^1.0.0",
-    "airtap-sauce": "^1.1.0",
-    "babel-minify": "^0.5.1",
-    "bowser": "^2.11.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/readable-stream": "^4.0.10",
     "browserify": "^17.0.0",
-    "coveralls": "^3.1.1",
-    "nyc": "^15.1.0",
-    "prettier-bytes": "^1.0.4",
-    "simple-get": "^4.0.0",
-    "speedometer": "^1.1.0",
-    "standard": "*",
-    "string-to-stream": "^3.0.1",
-    "tape": "^5.5.2",
-    "thunky": "^1.1.0",
-    "wrtc": "^0.4.7",
-    "ws": "^7.5.3"
+    "rollup": "^4.9.1",
+    "tachometer": "^0.7.0",
+    "tslib": "^2.6.2"
   },
   "keywords": [
     "data",
@@ -54,33 +45,20 @@
     "webrtc stream"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./exports/index.js",
+      "types": "./exports/index.d.ts"
+    },
+    "./browser": {
+      "import": "./exports/browser/browser.js"
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/simple-peer.git"
+    "url": "git://github.com/vandeurenglenn/simple-peer.git"
   },
   "scripts": {
-    "build": "browserify -s SimplePeer -r . | minify > simplepeer.min.js",
-    "size": "npm run build && cat simplepeer.min.js | gzip | wc -c",
-    "// test": "standard && npm run test-node && npm run test-browser",
-    "test": "standard && npm run test-browser",
-    "test-browser": "airtap --coverage --concurrency 1 -- test/*.js",
-    "test-browser-local": "airtap --coverage --preset local -- test/*.js",
-    "test-node": "WRTC=wrtc tape test/*.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "funding": [
-    {
-      "type": "github",
-      "url": "https://github.com/sponsors/feross"
-    },
-    {
-      "type": "patreon",
-      "url": "https://www.patreon.com/feross"
-    },
-    {
-      "type": "consulting",
-      "url": "https://feross.org/support"
-    }
-  ]
+    "build": "rollup -c"
+  }
 }

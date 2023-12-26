@@ -1,3 +1,2 @@
-.nyc_output
+exports
 node_modules
-package-lock.json
