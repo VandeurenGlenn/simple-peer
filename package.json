@@ -18,6 +18,8 @@
     "@koush/wrtc": "^0.5.3",
     "@vandeurenglenn/debug": "^1.0.0",
     "@vandeurenglenn/little-pubsub": "^1.4.6",
+    "@vandeurenglenn/typed-array-smart-concat": "^1.0.4",
+    "@vandeurenglenn/typed-array-smart-deconcat": "^1.0.3",
     "readable-stream": "^4.5.1"
   },
   "devDependencies": {
@@ -59,6 +61,7 @@
     "url": "git://github.com/vandeurenglenn/simple-peer.git"
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "benchmark": "npx tachometer tachometer/index.html [tachometer/v11.html]"
   }
 }
