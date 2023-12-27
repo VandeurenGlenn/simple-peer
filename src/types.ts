@@ -18,8 +18,8 @@ declare interface IOptions extends DuplexOptions {
   streams?: any[]
   sdpTransform?: Function
   iceCompleteTimeout?: EpochTimeStamp
-  allowHalfTrickle: boolean
-  trickle: boolean
+  allowHalfTrickle?: boolean
+  trickle?: boolean
 }
 
 export declare type ChannelConfig = {
