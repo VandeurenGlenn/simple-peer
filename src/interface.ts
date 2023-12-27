@@ -359,7 +359,9 @@ export default class PeerInterface {
       this._senderMap.set(track, submap)
       this._needsNegotiation()
     } else if (sender.removed) {
-      throw new Error('Track has been removed. You should enable/disable tracks that you want to re-add.')
+      throw new Error(
+        'Track has been removed. You should enable/disable tracks that you want to re-add.'
+      )
     } else {
       throw new Error('Track has already been added to that stream.')
     }
@@ -501,7 +503,8 @@ export default class PeerInterface {
       const offer = await this._pc.createOffer(this.options.offerOptions)
 
       if (this.destroyed) return
-      if (!this.options.trickle && !this.options.allowHalfTrickle) offer.sdp = this._filterTrickle(offer.sdp)
+      if (!this.options.trickle && !this.options.allowHalfTrickle)
+        offer.sdp = this._filterTrickle(offer.sdp)
       offer.sdp = this.options.sdpTransform(offer.sdp)
 
       const sendOffer = () => {
@@ -551,7 +554,8 @@ export default class PeerInterface {
     try {
       const answer = await this._pc.createAnswer(this.options.answerOptions)
       if (this.destroyed) return
-      if (!this.options.trickle && !this.options.allowHalfTrickle) answer.sdp = this._filterTrickle(answer.sdp)
+      if (!this.options.trickle && !this.options.allowHalfTrickle)
+        answer.sdp = this._filterTrickle(answer.sdp)
       answer.sdp = this.options.sdpTransform(answer.sdp)
 
       const sendAnswer = () => {
@@ -731,7 +735,6 @@ export default class PeerInterface {
           } catch (err) {
             return this._destroy(err)
           }
-          this._chunk = null
           debug('sent chunk from "write before connect"')
         }
 
@@ -831,7 +834,9 @@ export default class PeerInterface {
       const err =
         event.error instanceof Error
           ? event.error
-          : new Error(`Datachannel error: ${event.message} ${event.filename}:${event.lineno}:${event.colno}`)
+          : new Error(
+              `Datachannel error: ${event.message} ${event.filename}:${event.lineno}:${event.colno}`
+            )
       this._destroy(err)
     }
 

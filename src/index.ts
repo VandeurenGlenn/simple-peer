@@ -90,7 +90,11 @@ export default class Peer extends PeerInterface {
       debug('sending')
       const chunk = message.slice(0, 16000)
       this._channel.send(JSON.stringify({ id, chunk, size: message.length }))
-      this._messagesToSend.push({ message: message.slice(16000, message.length), id, size: message.length })
+      this._messagesToSend.push({
+        message: message.slice(16000, message.length),
+        id,
+        size: message.length
+      })
     } else {
       this._messagesToSend.push({ message, id, size: message.length })
     }

@@ -15,6 +15,12 @@
 
 #### Simple WebRTC video, voice, and data channels
 
+## why not just use simple-peer?
+
+- no need to use stream api, uses builtin randomUUID etc -> like 80kb lighter
+- all browser/ node compatible (for real) no browserify needed
+- builtin chunker (messages are best send in chunks when their sizes are bigger then 16kb)
+
 ## features
 
 - concise, **node.js style** API for [WebRTC](https://en.wikipedia.org/wiki/WebRTC)

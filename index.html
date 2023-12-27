@@ -28,11 +28,11 @@
       })
 
       peer2.on('connect', () => {
-        peer.send(new Uint8Array(64 * 1024))
+        peer.send(new Uint8Array(256 * 1024))
       })
 
       peer.on('connect', () => {
-        peer2.send(new Uint8Array(128 * 1024))
+        peer2.send(new Uint8Array(256 * 1024))
       })
     </script>
   </body>

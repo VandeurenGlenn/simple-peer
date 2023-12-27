@@ -2,6 +2,7 @@
 import typescript from '@rollup/plugin-typescript'
 import rimraf from 'rimraf'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
 
 try {
   rimraf.sync('./exports/*.js')
@@ -37,7 +38,8 @@ export default [
           outDir: './exports/browser',
           declaration: false
         }
-      })
+      }),
+      terser()
     ]
   }
 ]

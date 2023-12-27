@@ -9,12 +9,25 @@
     <script type="module">
       import * as bench from '/bench.js'
 
-      import Peer from './v11.js'
+      import './../node_modules/simple-peer/simplepeer.min.js'
+      const Peer = SimplePeer
+      const config = {
+        iceServers: [
+          {
+            urls: 'stun:stun.l.google.com:19302' // Google's public STUN server
+          },
+          {
+            urls: 'turn:openrelay.metered.ca:443',
+            username: 'openrelayproject',
+            credential: 'openrelayproject'
+          }
+        ]
+      }
       const run = () =>
         new Promise((resolve) => {
-          const peer = new Peer({ initiator: true })
-          const peer2 = new Peer()
-
+          const peer = new Peer({ initiator: true, config })
+          const peer2 = new Peer({ config })
+          let index = 0
           peer2.on('signal', (signal) => {
             peer.signal(signal)
           })
@@ -24,12 +37,13 @@
           })
 
           peer2.on('data', (data) => {
-            resolve()
+            if (index === 100) resolve()
           })
 
           peer2.on('connect', () => {
             for (let i = 0; i < 100; i++) {
-              peer.send(new Uint8Array(16 * 1024))
+              index += 1
+              peer.send(new Uint8Array(128 * 1024))
             }
             bench.stop()
           })

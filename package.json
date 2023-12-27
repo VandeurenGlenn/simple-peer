@@ -17,17 +17,16 @@
   "dependencies": {
     "@koush/wrtc": "^0.5.3",
     "@vandeurenglenn/debug": "^1.0.0",
-    "@vandeurenglenn/little-pubsub": "^1.4.6",
-    "@vandeurenglenn/typed-array-smart-concat": "^1.0.4",
-    "@vandeurenglenn/typed-array-smart-deconcat": "^1.0.3",
-    "readable-stream": "^4.5.1"
+    "@vandeurenglenn/little-pubsub": "^1.4.6"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/readable-stream": "^4.0.10",
     "browserify": "^17.0.0",
     "rollup": "^4.9.1",
+    "simple-peer": "^9.11.1",
     "tachometer": "^0.7.0",
     "tslib": "^2.6.2"
   },
@@ -62,6 +61,6 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "benchmark": "npx tachometer tachometer/index.html [tachometer/v11.html]"
+    "benchmark": "tachometer tachometer/current.html tachometer/simple-peer.html"
   }
 }
